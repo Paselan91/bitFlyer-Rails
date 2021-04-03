@@ -4,8 +4,8 @@ ENV BUNDLER_VERSION=2.1.4
 
 WORKDIR /usr/src/app
 
-COPY ./../src/Gemfile .
-COPY ./../src/Gemfile.lock .
+COPY ./Gemfile .
+COPY ./Gemfile.lock .
 
 RUN apk update && \
     apk add --no-cache \
