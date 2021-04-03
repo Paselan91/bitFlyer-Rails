@@ -29,3 +29,4 @@ services:
       - ./src:/usr/src/app
     command: ["rails", "server", "-b", "0.0.0.0"]
     tty: true
+    stdin_open: true
