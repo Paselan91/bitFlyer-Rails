@@ -13,6 +13,8 @@ restart:
 	docker-compose restart
 stop:
 	docker-compose stop
+create:
+	docker-compose run app rails db:create
 migrate:
 	docker-compose run app rails db:migrate
 seed:
