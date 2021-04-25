@@ -19,3 +19,9 @@ migrate:
 	docker-compose run app rails db:migrate
 seed:
 	docker-compose run app rails db:seed
+bundle install:
+	docker-compose run app bundle install
+attach for pry:
+	docker attach bitflyer_rails
+	# binding.pry　
+	# docker attachから抜けるには、　ctl + p -> ctl + q　
