@@ -13,8 +13,8 @@ services:
       MYSQL_USER: $MYSQL_USER
       MYSQL_PASSWORD: $MYSQL_PASSWORD
       MYSQL_DATABASE: $MYSQL_DATABASE
-  app:
-    container_name: "bitflyer_rails"
+  backend:
+    container_name: "rails"
     build:
       context: ./
       dockerfile: ./docker/app/Dockerfile
@@ -24,9 +24,25 @@ services:
       - ENV_MODE=dev
       - MYSQL_CONTAINER_NAME=bitflyer_rails_mysql
     ports:
-      - $PORT:3000
+      - $BE_PORT:3000
     volumes:
       - .:/usr/src/app
     command: ["rails", "server", "-b", "0.0.0.0"]
     tty: true
     stdin_open: true
+  frontend:
+    container_name: "nuxt"
+    build:
+      context: ./
+      dockerfile: ./FE/Dockerfile
+    environment:
+      TZ: Asia/Tokyo
+      API_BASE_URL: $API_BASE_URL
+    command: ['/bin/bash', '-c', 'NUXT_HOST=0.0.0.0 yarn run dev']
+    working_dir: /usr/src/app/FE
+    volumes:
+      - ./:/usr/src/app
+    ports:
+      - $WEB_PORT:3000
+    environment:
+      - HOST=0.0.0.0
