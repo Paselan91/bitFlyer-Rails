@@ -12,6 +12,13 @@ class TickerController < ApplicationController
     render json: JSON.parse(response.body)
   end
 
+  def show
+    # TODO: 引数から取得できるように修正する
+    duration = 'minutes'
+    candle = BtcCandle.where(duration: duration)
+    render json: candle
+  end
+
 
   def new
     url = ENV['BASE_URL'] + "ticker"
