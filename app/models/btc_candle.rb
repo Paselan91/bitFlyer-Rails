@@ -1,0 +1,2 @@
+class BtcCandle < ApplicationRecord
+end

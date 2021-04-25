@@ -10,7 +10,20 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_03_29_231518) do
+ActiveRecord::Schema.define(version: 2021_04_10_232415) do
+
+  create_table "btc_candles", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.string "ProductCode"
+    t.string "Duration"
+    t.time "Time"
+    t.float "Open"
+    t.float "Close"
+    t.float "High"
+    t.float "Low"
+    t.float "Volume"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
 
   create_table "users", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "name"
