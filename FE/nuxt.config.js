@@ -1,4 +1,4 @@
-import { Configuration } from '@nuxt/types'
+// import { Configuration } from '@nuxt/types'
 
 // import colors from 'vuetify/es5/util/colors'
 
