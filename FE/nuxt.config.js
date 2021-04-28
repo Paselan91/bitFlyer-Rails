@@ -4,11 +4,10 @@
 
 const envPath = `../.env`
 require('dotenv').config({ path: envPath })
-const { NODE_ENV, API_BASE_URL} = process.env
+const { NODE_ENV, API_BASE_URL } = process.env
 export default {
 
-// const nuxtConfig: Configuration = {
-  mode: 'universal',
+  // const nuxtConfig: Configuration = {
   buildModules: ['@nuxt/typescript-build'],
   /*
   ** Headers of the page
@@ -22,7 +21,7 @@ export default {
     ],
     link: [
       { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }
-    ]
+    ],
   },
   /*
   ** Customize the progress-bar color
@@ -48,7 +47,7 @@ export default {
   modules: [
     // Doc: https://axios.nuxtjs.org/usage
     '@nuxtjs/axios',
-    '@nuxtjs/eslint-module',
+    '@nuxtjs/eslint-module'
   ],
   /*
   ** Axios module configuration
@@ -61,12 +60,12 @@ export default {
     /*
     ** You can extend webpack config here
     */
-    extend(config, ctx) {
+    extend (config, ctx) {
     }
   },
   srcDir: 'src/',
   env: {
     IS_ENV_DEVELOPMENT: NODE_ENV === 'development',
-    API_BASE_URL,
-  },
+    API_BASE_URL
+  }
 }
