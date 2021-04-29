@@ -1,5 +1,4 @@
 // import { Configuration } from '@nuxt/types'
-
 // import colors from 'vuetify/es5/util/colors'
 
 const envPath = `../.env`
@@ -21,7 +20,7 @@ export default {
     ],
     link: [
       { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }
-    ],
+    ]
   },
   /*
   ** Customize the progress-bar color
@@ -47,8 +46,14 @@ export default {
   modules: [
     // Doc: https://axios.nuxtjs.org/usage
     '@nuxtjs/axios',
-    '@nuxtjs/eslint-module'
+    '@nuxtjs/eslint-module',
+    '@nuxtjs/style-resources'
   ],
+  styleResources: {
+    scss: [
+    '~/assets/scss/_index.scss'
+    ]
+  },
   /*
   ** Axios module configuration
   ** See https://axios.nuxtjs.org/options
@@ -60,7 +65,16 @@ export default {
     /*
     ** You can extend webpack config here
     */
-    extend (config, ctx) {
+    extend(config, ctx) {
+      // Run ESLint on save
+      if (ctx.isDev && ctx.isClient) {
+        config.module.rules.push({
+          enforce: 'pre',
+          test: /\.(js|vue|ts)$/,
+          loader: 'eslint-loader',
+          exclude: /(node_modules)/
+        })
+      }
     }
   },
   srcDir: 'src/',
