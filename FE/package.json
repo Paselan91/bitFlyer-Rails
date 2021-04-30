@@ -16,11 +16,11 @@
     "@nuxtjs/axios": "^5.3.6",
     "@nuxtjs/style-resources": "^1.0.0",
     "chart.js": "^3.2.0",
-    "node-sass": "^5.0.0",
+    "node-sass": "4.14",
     "nuxt": "^2.0.0",
     "nuxt-property-decorator": "^2.9.1",
     "nuxt-ts": "^2.8.1",
-    "sass-loader": "^11.0.1",
+    "sass-loader": "7.1.0",
     "vue-chartjs": "^3.5.1"
   },
   "devDependencies": {
