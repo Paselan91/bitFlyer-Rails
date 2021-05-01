@@ -1,6 +1,7 @@
 <template>
   <div class="chart-container">
     <ChartLine :chartData="chartData" :options="chartOption" :styles="chartStyles" />
+    
   </div>
 </template>
 
