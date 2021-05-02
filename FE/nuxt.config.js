@@ -1,14 +1,12 @@
 // import { Configuration } from '@nuxt/types'
-
 // import colors from 'vuetify/es5/util/colors'
 
 const envPath = `../.env`
 require('dotenv').config({ path: envPath })
-const { NODE_ENV, API_BASE_URL} = process.env
+const { NODE_ENV, API_BASE_URL } = process.env
 export default {
 
-// const nuxtConfig: Configuration = {
-  mode: 'universal',
+  // const nuxtConfig: Configuration = {
   buildModules: ['@nuxt/typescript-build'],
   /*
   ** Headers of the page
@@ -49,7 +47,13 @@ export default {
     // Doc: https://axios.nuxtjs.org/usage
     '@nuxtjs/axios',
     '@nuxtjs/eslint-module',
+    '@nuxtjs/style-resources'
   ],
+  styleResources: {
+    scss: [
+    '~/assets/scss/_index.scss'
+    ]
+  },
   /*
   ** Axios module configuration
   ** See https://axios.nuxtjs.org/options
@@ -62,11 +66,20 @@ export default {
     ** You can extend webpack config here
     */
     extend(config, ctx) {
+      // Run ESLint on save
+      if (ctx.isDev && ctx.isClient) {
+        config.module.rules.push({
+          enforce: 'pre',
+          test: /\.(js|vue|ts)$/,
+          loader: 'eslint-loader',
+          exclude: /(node_modules)/
+        })
+      }
     }
   },
   srcDir: 'src/',
   env: {
     IS_ENV_DEVELOPMENT: NODE_ENV === 'development',
-    API_BASE_URL,
-  },
+    API_BASE_URL
+  }
 }
