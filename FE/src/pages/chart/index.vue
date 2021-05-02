@@ -4,9 +4,16 @@
     <p>ticker {{ ticker }}</p>
     <p>chart {{ chart }}</p>
 
-    <nuxt-link to="/chart/chart_js_test">
-      chart.jsのテストページ
-    </nuxt-link>
+    <div>
+      <nuxt-link to="/chart/chart_js_test">
+        chart.jsのテストページ
+      </nuxt-link>
+    </div>
+    <div>
+      <nuxt-link to="/chart/apex_chart_js_test">
+        apex_chart.jsのテストページ
+      </nuxt-link>
+    </div>
   </div>
 </template>
 

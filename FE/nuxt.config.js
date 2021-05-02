@@ -35,6 +35,7 @@ export default {
   ** Plugins to load before mounting the App
   */
   plugins: [
+    { src : '~/plugins/vue-apexchart.js', ssr : false }
   ],
   typescript: {
     typeCheck: true,
@@ -62,20 +63,6 @@ export default {
   ** Build configuration
   */
   build: {
-    /*
-    ** You can extend webpack config here
-    */
-    extend(config, ctx) {
-      // Run ESLint on save
-      if (ctx.isDev && ctx.isClient) {
-        config.module.rules.push({
-          enforce: 'pre',
-          test: /\.(js|vue|ts)$/,
-          loader: 'eslint-loader',
-          exclude: /(node_modules)/
-        })
-      }
-    }
   },
   srcDir: 'src/',
   env: {
