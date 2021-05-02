@@ -1,4 +1,8 @@
 <template>
+<div>
+  <nuxt-link to="candle_sample">
+      candle stick test
+  </nuxt-link>
   <client-only>
     <div>
       <Apexchart
@@ -9,6 +13,7 @@
       ></Apexchart>
     </div>
   </client-only>
+</div>
 </template>
 
 <script lang="ts">
