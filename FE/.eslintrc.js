@@ -12,7 +12,8 @@ module.exports = {
       'prettier/vue'
   ],
   plugins: [
-      'vue'
+      'vue',
+      'prettier'
   ],
   rules: {
       'vue/html-closing-bracket-newline': 'off',
