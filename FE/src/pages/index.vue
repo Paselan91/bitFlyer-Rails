@@ -7,9 +7,6 @@
   </div>
 </template>
 
-<script lant="ts">
+<script lant="ts"></script>
 
-</script>
-
-<style lang="scss">
-</style>
+<style lang="scss"></style>

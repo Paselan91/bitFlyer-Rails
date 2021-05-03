@@ -1,7 +1,8 @@
 {
   "name": "nuxt-app",
   "version": "1.0.0",
-  "description": "My awe-inspiring Nuxt.js project",
+  "license": "UNLICENSED",
+  "description": "",
   "author": "",
   "private": true,
   "scripts": {
@@ -9,7 +10,9 @@
     "build": "nuxt-ts build",
     "start": "nuxt-ts start",
     "generate": "nuxt-ts generate",
-    "lint": "eslint --ext .js,.vue --ignore-path .gitignore ."
+    "lint:js": "eslint --ext .js,.vue,.ts --ignore-path .gitignore --ignore-path .eslintignore --fix",
+    "lint": "yarn lint:js",
+    "lint:fix": "yarn lint:js --fix"
   },
   "dependencies": {
     "@nuxt/typescript-runtime": "^2.1.0",
@@ -28,12 +31,13 @@
   "devDependencies": {
     "@nuxt/types": "^0.3.4",
     "@nuxt/typescript-build": "^2.1.0",
-    "@nuxtjs/eslint-config": "^1.0.1",
-    "@nuxtjs/eslint-config-typescript": "^6.0.0",
-    "@nuxtjs/eslint-module": "^1.0.0",
+    "@nuxtjs/eslint-config": "^5.0.0",
+    "@nuxtjs/eslint-config-typescript": "^5.0.0",
+    "@nuxtjs/eslint-module": "^3.0.1",
     "babel-eslint": "^10.0.1",
-    "eslint": "^7.25.0",
-    "eslint-loader": "^4.0.2",
-    "eslint-plugin-nuxt": "^2.0.0"
+    "eslint": "^7.14.0",
+    "eslint-config-prettier": "^6.15.0",
+    "eslint-plugin-nuxt": "^2.0.0",
+    "eslint-plugin-prettier": "^3.4.0"
   }
 }

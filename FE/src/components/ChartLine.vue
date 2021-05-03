@@ -1,5 +1,5 @@
 <script lang="ts">
-import { Component, Vue, Prop, Watch, mixins } from "nuxt-property-decorator";
+import { Component, Prop, mixins } from "nuxt-property-decorator";
 import Chart from "chart.js";
 import VueChart from "vue-chartjs";
 const Line = VueChart.Line;
