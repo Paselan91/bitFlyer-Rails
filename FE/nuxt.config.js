@@ -1,72 +1,67 @@
 // import { Configuration } from '@nuxt/types'
 // import colors from 'vuetify/es5/util/colors'
 
-const envPath = `../.env`
-require('dotenv').config({ path: envPath })
-const { NODE_ENV, API_BASE_URL } = process.env
+const envPath = `../.env`;
+require("dotenv").config({ path: envPath });
+const { NODE_ENV, API_BASE_URL } = process.env;
 export default {
-
   // const nuxtConfig: Configuration = {
-  buildModules: ['@nuxt/typescript-build'],
+  buildModules: ["@nuxt/typescript-build"],
   /*
-  ** Headers of the page
-  */
+   ** Headers of the page
+   */
   head: {
-    title: process.env.npm_package_name || '',
+    title: process.env.npm_package_name || "",
     meta: [
-      { charset: 'utf-8' },
-      { name: 'viewport', content: 'width=device-width, initial-scale=1' },
-      { hid: 'description', name: 'description', content: process.env.npm_package_description || '' }
+      { charset: "utf-8" },
+      { name: "viewport", content: "width=device-width, initial-scale=1" },
+      {
+        hid: "description",
+        name: "description",
+        content: process.env.npm_package_description || ""
+      }
     ],
-    link: [
-      { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }
-    ]
+    link: [{ rel: "icon", type: "image/x-icon", href: "/favicon.ico" }]
   },
   /*
-  ** Customize the progress-bar color
-  */
-  loading: { color: '#fff' },
+   ** Customize the progress-bar color
+   */
+  loading: { color: "#fff" },
   /*
-  ** Global CSS
-  */
-  css: [
-  ],
+   ** Global CSS
+   */
+  css: [],
   /*
-  ** Plugins to load before mounting the App
-  */
-  plugins: [
-    { src : '~/plugins/vue-apexchart.js', ssr : false }
-  ],
+   ** Plugins to load before mounting the App
+   */
+  plugins: [{ src: "~/plugins/vue-apexchart.js", ssr: false }],
   typescript: {
     typeCheck: true,
     ignoreNotFoundWarnings: true
   },
   /*
-  ** Nuxt.js modules
-  */
+   ** Nuxt.js modules
+   */
   modules: [
     // Doc: https://axios.nuxtjs.org/usage
-    '@nuxtjs/axios',
-    '@nuxtjs/eslint-module',
-    '@nuxtjs/style-resources'
+    "@nuxtjs/axios",
+    "@nuxtjs/eslint-module",
+    "@nuxtjs/style-resources"
   ],
   styleResources: {
-    scss: [
-    '~/assets/scss/_index.scss'
-    ]
+    scss: ["~/assets/scss/_index.scss"]
   },
   /*
-  ** Axios module configuration
-  ** See https://axios.nuxtjs.org/options
-  */
+   ** Axios module configuration
+   ** See https://axios.nuxtjs.org/options
+   */
   /*
-  ** Build configuration
-  */
-  build: {
-  },
-  srcDir: 'src/',
+   ** Build configuration
+   */
+  build: {},
+  srcDir: "src/",
   env: {
-    IS_ENV_DEVELOPMENT: NODE_ENV === 'development',
+    IS_ENV_DEVELOPMENT: NODE_ENV === "development",
     API_BASE_URL
   }
-}
+};

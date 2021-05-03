@@ -1,11 +1,15 @@
 <template>
   <div class="chart-container">
-    <ChartLine :chartData="chartData" :options="chartOption" :styles="chartStyles" />
+    <ChartLine
+      :chart-data="chartData"
+      :options="chartOption"
+      :styles="chartStyles"
+    />
   </div>
 </template>
 
 <script lang="ts">
-import { Component, Vue, Prop } from "nuxt-property-decorator";
+import { Component, Vue } from "nuxt-property-decorator";
 import { ChartData, ChartOptions } from "chart.js";
 import ChartLine from "~/components/ChartLine.vue";
 import ChartBar from "~/components/ChartBar.vue";

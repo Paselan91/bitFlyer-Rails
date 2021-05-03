@@ -10,7 +10,7 @@
     "build": "nuxt-ts build",
     "start": "nuxt-ts start",
     "generate": "nuxt-ts generate",
-    "lint:js": "eslint --ext .js,.vue,.ts --ignore-path .gitignore --ignore-path .eslintignore",
+    "lint:js": "eslint --ext .js,.vue,.ts --ignore-path .gitignore --ignore-path .eslintignore --fix",
     "lint": "yarn lint:js",
     "lint:fix": "yarn lint:js --fix"
   },
@@ -38,6 +38,6 @@
     "eslint": "^7.14.0",
     "eslint-config-prettier": "^6.15.0",
     "eslint-plugin-nuxt": "^2.0.0",
-    "eslint-plugin-prettier": "^3.1.4"
+    "eslint-plugin-prettier": "^3.4.0"
   }
 }
