@@ -1,6 +1,7 @@
 <template>
   <div>
     <h1>candle stick api</h1>
+    <v-btn>Get Data from Rails</v-btn>
     <client-only>
       <div id="chart">
         <apexchart

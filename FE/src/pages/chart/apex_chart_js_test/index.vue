@@ -1,4 +1,4 @@
-<template>
+<!-- <template>
   <div>
     <nuxt-link to="candle_sample">
       candle stick test
@@ -38,4 +38,4 @@ export default class GenericChart extends Vue {
     }
   ];
 }
-</script>
+</script> -->

@@ -6,7 +6,10 @@ require("dotenv").config({ path: envPath });
 const { NODE_ENV, API_BASE_URL } = process.env;
 export default {
   // const nuxtConfig: Configuration = {
-  buildModules: ["@nuxt/typescript-build"],
+  buildModules: [
+    "@nuxt/typescript-build",
+    '@nuxtjs/vuetify',
+  ],
   /*
    ** Headers of the page
    */
@@ -58,7 +61,19 @@ export default {
   /*
    ** Build configuration
    */
-  build: {},
+  build: {
+    extend(config, ctx) {
+      // Run ESLint on save
+      if (ctx.isDev && process.isClient) { // <= `ctx.isClient` を `process.isClient` に変更！
+        config.module.rules.push({
+          enforce: 'pre',
+          test: /\.(js|vue)$/,
+          loader: 'eslint-loader',
+          exclude: /(node_modules)/
+        })
+      }
+    }
+  },
   srcDir: "src/",
   env: {
     IS_ENV_DEVELOPMENT: NODE_ENV === "development",
