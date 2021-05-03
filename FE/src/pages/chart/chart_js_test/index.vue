@@ -1,4 +1,4 @@
-<template>
+<!-- <template>
   <div class="chart-container">
     <ChartLine
       :chart-data="chartData"
@@ -63,4 +63,4 @@ export default class ChartPage extends Vue {
   width: 80vw;
   margin: 0 auto;
 }
-</style>
+</style> -->

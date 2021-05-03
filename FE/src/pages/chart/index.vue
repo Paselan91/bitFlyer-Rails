@@ -1,4 +1,4 @@
-<template>
+<!-- <template>
   <div>
     <h1>チャート BitFlyer</h1>
     <p>ticker {{ ticker }}</p>
@@ -38,4 +38,4 @@ export default {
 };
 </script>
 
-<style lang="scss"></style>
+<style lang="scss"></style> -->

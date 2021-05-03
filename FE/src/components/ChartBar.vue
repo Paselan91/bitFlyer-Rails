@@ -1,4 +1,4 @@
-<script lang="ts">
+<!-- <script lang="ts">
 import { Component, Prop, mixins } from "nuxt-property-decorator";
 import Chart from "chart.js";
 import VueChart from "vue-chartjs";
@@ -16,4 +16,4 @@ export default class ChartBar extends mixins(Bar, reactiveProp) {
     this.renderChart(this.chartData, this.options);
   }
 }
-</script>
+</script> -->
