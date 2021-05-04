@@ -1,7 +1,7 @@
 <template>
   <div>
     <h1>candle stick api</h1>
-    <v-btn>Get Data from Rails</v-btn>
+    <v-btn @click="fetchCandle">Get Data from Rails</v-btn>
     <client-only>
       <div id="chart">
         <apexchart
@@ -16,27 +16,40 @@
 </template>
 
 <script lang="ts">
-import { Component, Prop, Vue } from "nuxt-property-decorator";
+import { Component, Prop, Vue } from "nuxt-property-decorator"
+import axios from "axios"
 
-@Component
+@Component({})
 export default class GenericChart extends Vue {
-  @Prop({ required: true, default: "bar" }) type: string;
-  //   public chartOptions = {
-  //     chart: {
-  //       id: 'vuechart-example',
-  //     },
-  //     xaxis: {
-  //       categories: [1991, 1992, 1993, 1994, 1995, 1996, 1997, 1998],
-  //     },
-  //   }
+  async fetchCandle() {
+    const url = "/api/v1/ticker/1"
+    let data: Array<any>
+    await axios
+      .get(url)
+      .then(res => {
+        if (res.status === 200) {
+          data = res.data
 
-  //   public series = [
-  //     {
-  //       name: 'series-1',
-  //       data: [30, 40, 35, 50, 49, 60, 70, 91],
-  //     },
-  //   ]
+          const chartData: any = data.map(value => ({
+            x: new Date(Date.parse(value.Time)),
+            y: [value.Open, value.Close, value.High, value.Low]
+          }))
+          console.log(chartData)
+          this.series = [
+            {
+              data: chartData
+            }
+          ]
+        }
+      })
+      .catch(e => {
+        console.log(e)
+        console.error("apiの取得に失敗しました")
+        return false
+      })
+  }
 
+  @Prop({ required: true, default: "bar" }) type: string
   public series = [
     {
       data: [
@@ -282,7 +295,7 @@ export default class GenericChart extends Vue {
         }
       ]
     }
-  ];
+  ]
 
   public chartOptions = {
     chart: {
@@ -301,6 +314,6 @@ export default class GenericChart extends Vue {
         enabled: true
       }
     }
-  };
+  }
 }
 </script>
