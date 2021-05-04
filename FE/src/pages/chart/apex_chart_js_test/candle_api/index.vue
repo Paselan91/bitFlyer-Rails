@@ -22,7 +22,8 @@ import axios from "axios"
 @Component({})
 export default class GenericChart extends Vue {
   async fetchCandle() {
-    const url = "/api/v1/ticker/1"
+    const duration = "seconds"
+    const url = "/api/v1/fetch_ticker/" + duration
     let data: Array<any>
     await axios
       .get(url)
