@@ -1,15 +1,12 @@
 // import { Configuration } from '@nuxt/types'
 // import colors from 'vuetify/es5/util/colors'
 
-const envPath = `../.env`;
-require("dotenv").config({ path: envPath });
-const { NODE_ENV, API_BASE_URL } = process.env;
+const envPath = `../.env`
+require("dotenv").config({ path: envPath })
+const { NODE_ENV, API_BASE_URL } = process.env
 export default {
   // const nuxtConfig: Configuration = {
-  buildModules: [
-    "@nuxt/typescript-build",
-    '@nuxtjs/vuetify',
-  ],
+  buildModules: ["@nuxt/typescript-build", "@nuxtjs/vuetify"],
   /*
    ** Headers of the page
    */
@@ -51,6 +48,15 @@ export default {
     "@nuxtjs/eslint-module",
     "@nuxtjs/style-resources"
   ],
+  axios: { proxy: true },
+  proxy: {
+    "/api": {
+      target: API_BASE_URL,
+      pathRewrite: {
+        "^/api/v1": "/api/v1/"
+      }
+    }
+  },
   styleResources: {
     scss: ["~/assets/scss/_index.scss"]
   },
@@ -64,11 +70,12 @@ export default {
   build: {
     extend(config, ctx) {
       // Run ESLint on save
-      if (ctx.isDev && process.isClient) { // <= `ctx.isClient` を `process.isClient` に変更！
+      if (ctx.isDev && process.isClient) {
+        // <= `ctx.isClient` を `process.isClient` に変更！
         config.module.rules.push({
-          enforce: 'pre',
+          enforce: "pre",
           test: /\.(js|vue)$/,
-          loader: 'eslint-loader',
+          loader: "eslint-loader",
           exclude: /(node_modules)/
         })
       }
@@ -79,4 +86,4 @@ export default {
     IS_ENV_DEVELOPMENT: NODE_ENV === "development",
     API_BASE_URL
   }
-};
+}
