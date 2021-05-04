@@ -19,8 +19,7 @@ module Api
         render json: candle
       end
 
-
-      def new
+      def get_with_create
         url = ENV['BASE_URL'] + "ticker"
         client = HTTPClient.new
         response = client.get(url)
@@ -28,8 +27,10 @@ module Api
         is_success = save_candles(ticker)
 
         if is_success
-          render  json: "success"
+          candle = BtcCandle.where(duration: params[:duration])
+          render json: candle
         else
+          # TODO: 適切なエラーメッセージを返すようにする
           render  json: "failed"
         end
 
@@ -39,7 +40,7 @@ module Api
       private
 
       def save_candles(ticker)
-        # TODO: Configへ格納
+        # TODO: LaravelのConfigのようにして、BE全体で使えるようにたい
         durations = ['seconds', 'minutes', 'hour']
         is_success = false
 
