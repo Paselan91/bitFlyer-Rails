@@ -5,7 +5,7 @@ Rails.application.routes.draw do
   namespace 'api' do
     namespace 'v1' do
       resources :ticker
-      get  "fetch_ticker/:duration"  => "ticker#get_with_create"
+      get  "fetch_ticker"  => "ticker#get_with_create"
     end
   end
 end
