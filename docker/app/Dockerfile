@@ -23,6 +23,9 @@ RUN apk update && \
     gem install bundler && \
     bundle install
 
+RUN apk update && \
+    apk add less
+    
 COPY . .
 
 EXPOSE 3000
