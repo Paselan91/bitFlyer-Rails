@@ -5,7 +5,10 @@ Rails.application.routes.draw do
   namespace 'api' do
     namespace 'v1' do
       resources :ticker
+
       get  "fetch_ticker"  => "ticker#get_with_create"
+
+      get  "fetch_past_ticker"  => "past_ticker#index"
     end
   end
 end
