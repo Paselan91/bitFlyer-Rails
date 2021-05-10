@@ -8,7 +8,7 @@
     <div>
       <h3>Choose period</h3>
       <v-select
-        v-model="select"
+        v-model="selectedPeriod"
         :items="period"
         label="Period"
         item-text="label"
@@ -65,6 +65,10 @@
       <nuxt-link to="/">back</nuxt-link>
     </v-btn>
 
+    <v-btn depressed color="secondary" @click="checkParamerters">
+      check query paramerters
+    </v-btn>
+
     <client-only>
       <div v-if="!isLoading" id="chart">
         <apexchart
@@ -105,14 +109,35 @@ export default class GenericChart extends Vue {
     { label: "3d", value: 604800 }
   ]
 
-  select = { label: "1m", value: 60 }
+  selectedPeriod = { label: "1m", value: 60 }
 
+  // FIXME: 変数名かえたい
   isBefore: Boolean = true
 
   date = new Date().toISOString().substr(0, 10)
   dateFormatted = this.formatDate(new Date().toISOString().substr(0, 10))
   get computedDateFormatted() {
     return this.formatDate(this.date)
+  }
+
+  // TODO: デバッグよう
+  checkParamerters() {
+    console.log("checkParamerters")
+    console.log("selected period ")
+    console.log(this.selectedPeriod.value)
+    console.log("isBefore " + this.isBefore)
+    console.log("date " + this.date)
+    const unixtimestamp = Math.floor(Date.parse(this.date) / 1000)
+    console.log("unixtimestamp " + unixtimestamp)
+
+    const beforeAfter: string = this.isBefore ? "after" : "after"
+    // let unixtimestamp = Math.floor(Date.parse(this.date) / 1000)
+    const requestData = {
+      period: this.selectedPeriod.value,
+      [beforeAfter]: unixtimestamp
+    }
+    console.log("requestData")
+    console.log(requestData)
   }
 
   formatDate(date) {
@@ -165,8 +190,21 @@ export default class GenericChart extends Vue {
 
   async fetchPastCandle() {
     this.isLoading = true
-    const requestData = { duration: this.duration }
+
+    // FIXME: 変数名かえたい
+    const beforeAfter = this.isBefore ? "before" : "after"
+    const unixtimestamp = Math.floor(Date.parse(this.date) / 1000)
+    const requestData = {
+      period: this.selectedPeriod.value,
+      [beforeAfter]: unixtimestamp
+    }
     let data: Array<any>
+
+    // periods=86400&after=1483196400'
+    // console.log(this.selectedPeriod)
+    // console.log("isBefore " + this.isBefore)
+    // console.log("date " + this.date)
+
     await axios
       .get(this.url, { params: requestData })
       .then(res => {
