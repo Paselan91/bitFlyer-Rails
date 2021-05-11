@@ -12,6 +12,7 @@
       <v-btn @click="fetchCandle">Get Data from API</v-btn>
       <v-btn @click="stopFetchCandle">Stop API</v-btn>
     </div>
+    <nuxt-link to="/">back</nuxt-link>
     <client-only>
       <div v-if="!isLoading" id="chart">
         <apexchart

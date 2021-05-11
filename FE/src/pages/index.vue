@@ -1,12 +1,8 @@
 <template>
   <div>
-    <h1>BitFlyer Test</h1>
-    <nuxt-link to="/chart">
-      チャートページ
-    </nuxt-link>
+    <nuxt-link to="/apex_chart_js_test">apex chart.js test</nuxt-link>
+    <nuxt-link to="/past_candle">past candle</nuxt-link>
   </div>
 </template>
 
-<script lant="ts"></script>
-
-<style lang="scss"></style>
+<script lang="ts"></script>
