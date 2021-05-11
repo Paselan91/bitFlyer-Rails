@@ -5,17 +5,19 @@ module Api
       require 'rounding'
 
       def index
-        # url = ENV['PAST_BASE_URL']
-        # periods =
-        # after =
-        # before =
-        logger.debug("before get")
+        url = 'https://api.cryptowat.ch/markets/bitflyer/btcjpy/ohlc'
 
-        url = 'https://api.cryptowat.ch/markets/bitflyer/btcjpy/ohlc?periods=86400&after=1483196400'
-        logger.debug("url " + url)
+        logger.debug("request.query_parameters")
+        logger.debug(request.query_parameters)
+
         client = HTTPClient.new
-        response = client.get(url)
-        logger.debug(response.body)
+
+        if (request.query_parameters.any?)
+          response = client.get(url,request.query_parameters)
+        else
+          response = client.get(url)
+        end
+
         render json: JSON.parse(response.body)
       end
     end

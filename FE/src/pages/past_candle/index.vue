@@ -1,4 +1,4 @@
-<!-- build用(作業中のため、docker-compose build すると落ちることがあるので) -->
+<!-- buildで落ちる時用 -->
 <!-- <template>
 <div></div>
 </template> -->
@@ -20,10 +20,9 @@
     <div>
       <h3>Choose date</h3>
       <v-container fluid>
-        <p>{{ isBefore }}</p>
-        <v-radio-group v-model="isBefore" mandatory>
-          <v-radio label="Before" value="true"></v-radio>
-          <v-radio label="After" value="false"></v-radio>
+        <v-radio-group v-model="beforeAfter" mandatory>
+          <v-radio label="After" value="after"></v-radio>
+          <v-radio label="Before" value="before"></v-radio>
         </v-radio-group>
       </v-container>
 
@@ -59,13 +58,13 @@
       </v-container>
     </div>
     <div>
-      <v-btn @click="fetchPastCandle">Get Data from API</v-btn>
+      <v-btn class="my-3" @click="fetchPastCandle">Get Data from API</v-btn>
     </div>
-    <v-btn depressed color="primary">
+    <v-btn class="my-3" depressed>
       <nuxt-link to="/">back</nuxt-link>
     </v-btn>
 
-    <v-btn depressed color="secondary" @click="checkParamerters">
+    <v-btn class="my-3" depressed color="secondary" @click="checkParamerters">
       check query paramerters
     </v-btn>
 
@@ -89,8 +88,8 @@ import axios from "axios"
 @Component({})
 export default class GenericChart extends Vue {
   isLoading: Boolean = false
-  duration: string = "minutes" // TODO: hour, minutes, seconds 可変にする
   url: string = "/api/v1/fetch_past_ticker/"
+  beforeAfter: string = "after"
 
   // periodに関する処理
   period: Array<object> = [
@@ -111,9 +110,6 @@ export default class GenericChart extends Vue {
 
   selectedPeriod = { label: "1m", value: 60 }
 
-  // FIXME: 変数名かえたい
-  isBefore: Boolean = true
-
   date = new Date().toISOString().substr(0, 10)
   dateFormatted = this.formatDate(new Date().toISOString().substr(0, 10))
   get computedDateFormatted() {
@@ -125,16 +121,14 @@ export default class GenericChart extends Vue {
     console.log("checkParamerters")
     console.log("selected period ")
     console.log(this.selectedPeriod.value)
-    console.log("isBefore " + this.isBefore)
+    console.log("beforeAfter " + this.beforeAfter)
     console.log("date " + this.date)
     const unixtimestamp = Math.floor(Date.parse(this.date) / 1000)
     console.log("unixtimestamp " + unixtimestamp)
 
-    const beforeAfter: string = this.isBefore ? "after" : "after"
-    // let unixtimestamp = Math.floor(Date.parse(this.date) / 1000)
     const requestData = {
       period: this.selectedPeriod.value,
-      [beforeAfter]: unixtimestamp
+      [this.beforeAfter]: unixtimestamp
     }
     console.log("requestData")
     console.log(requestData)
@@ -192,40 +186,34 @@ export default class GenericChart extends Vue {
     this.isLoading = true
 
     // FIXME: 変数名かえたい
-    const beforeAfter = this.isBefore ? "before" : "after"
     const unixtimestamp = Math.floor(Date.parse(this.date) / 1000)
     const requestData = {
       period: this.selectedPeriod.value,
-      [beforeAfter]: unixtimestamp
+      [this.beforeAfter]: unixtimestamp
     }
+    // FIXME: anyに型をつける
     let data: Array<any>
-
-    // periods=86400&after=1483196400'
-    // console.log(this.selectedPeriod)
-    // console.log("isBefore " + this.isBefore)
-    // console.log("date " + this.date)
 
     await axios
       .get(this.url, { params: requestData })
       .then(res => {
         if (res.status === 200) {
-          data = res.data.result["86400"]
+          console.log(res.data)
+          data = res.data.result[this.selectedPeriod.value]
 
           /**
            *  Response
            *  https://docs.cryptowat.ch/rest-api/markets/ohlc
            *
-           * [
-           *  CloseTime,
-           *  OpenPrice,
-           *  HighPrice,
-           *  LowPrice,
-           *  ClosePrice,
-           *  Volume,
-           *  QuoteVolume
-           * ]
-           *
-           *
+           *  [
+           *      CloseTime,
+           *      OpenPrice,
+           *      HighPrice,
+           *      LowPrice,
+           *      ClosePrice,
+           *      Volume,
+           *      QuoteVolume
+           *  ]
            **/
           const chartData: any = data.map(value => ({
             x: new Date(value[0] * 1000),
@@ -238,23 +226,23 @@ export default class GenericChart extends Vue {
             }
           ]
 
-          // this.chartOptions.yaxis.max = Math.max(
-          //   ...chartData.map(value => value.y[1])
-          // )
-          // this.chartOptions.yaxis.min = Math.min(
-          //   ...chartData.map(value => value.y[2])
-          // )
+          this.chartOptions.yaxis.max = Math.max(
+            ...chartData.map(value => value.y[1])
+          )
+          this.chartOptions.yaxis.min = Math.min(
+            ...chartData.map(value => value.y[2])
+          )
 
-          // this.chartOptions.xaxis.maxHeight = Math.max(
-          //   ...chartData.map(value => value.x)
-          // )
-          // this.chartOptions.xaxis.minHeight = Math.min(
-          //   ...chartData.map(value => value.x)
-          // )
+          this.chartOptions.xaxis.maxHeight = Math.max(
+            ...chartData.map(value => value.x)
+          )
+          this.chartOptions.xaxis.minHeight = Math.min(
+            ...chartData.map(value => value.x)
+          )
         }
       })
       .catch(e => {
-        console.error("Apiの取得に失敗しました")
+        alert("Apiの取得に失敗しました")
         console.error(e)
         return false
       })
